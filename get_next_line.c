@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 09:32:13 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/18 14:40:35 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/21 14:47:13 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,17 @@ char	*get_line(char *line, char *stash, size_t i)
 	s_size = ft_strlen(stash) + ft_strlen(line) + 1;
 	if (!line)
 	{
-		joined = malloc(sizeof(char) * s_size + find_sep(stash));
+		joined = malloc(sizeof(char) * s_size);
 		j = 0;
 	}
 	else
-		joined = malloc(sizeof(char) * s_size + find_sep(stash));
+		joined = malloc(sizeof(char) * s_size);
 	if (!joined)
 		return (NULL);
 	while (line != NULL && line[++j] != '\0')
 		joined[j] = line[j];
-	while (stash[i] != '\0' && stash[i] != '\n')
+	while (stash[i] != '\0')
 		joined[j++] = stash[i++];
-	if (stash[i] == '\n')
-		joined[j++] = '\n';
 	joined[j] = '\0';
 	free(line);
 	return (joined);
@@ -48,8 +46,6 @@ char	*read_line(int fd, ssize_t reader, char *line, char *stash)
 	while (stash[0] != '\0')
 	{
 		line = get_line(line, stash, i);
-		if (find_sep(stash) == 1)
-			break ;
 		i = 0;
 		reader = read(fd, stash, BUFFER_SIZE);
 		stash[reader] = '\0';
@@ -109,21 +105,27 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*int main()
+char	*get_str(const char *file)
 {
 	int fd;
-	int l;
-	char *line;
-
-	l = 0;
-	fd = open("test", O_RDONLY);
+	char *map;
+	
+	map = NULL;
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		printf("FD incorrect\n");
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		++l;
-		printf("%d  %s", l, line);
-		free(line);
-	}
-	return (0);
+	map = get_next_line(fd);	
+	return (map);
+}
+
+/*int main(int ac, char **av)
+{
+	if (ac != 2)
+		return 0;
+	
+	char *str;
+	str = get_str(av[1]);
+	printf("%s", str);
+	free(str);
+	return 0;
 }*/

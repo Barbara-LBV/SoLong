@@ -10,24 +10,26 @@ NAME		= so_long
 # source files
 SRCS	= get_next_line.c \
 		get_next_line_utils.c \
-		so_long.c
+		so_long.c \
+		parsing.c \
+		parsing_utils.c
 
 # object files
 OBJS	= ${SRCS:.c=.o}
 
 # Printf library
-PRINTF_NAME	= libftprintf.a
+PRINTF_NAME	= -lftprintf
 
 PRINTF_PATH	= ./Printf
 
-PRINTF		= -L${PRINTF_PATH} -l${PRINFT_NAME}
+PRINTF		= -L${PRINTF_PATH} ${PRINTF_NAME}
 
 # Libft library
-LIBFT_NAME	= libft.h
+LIBFT_NAME	= -lft
 
 LIBFT_PATH	= ./Libft
 
-LIBFT		= -L${LIBFT_PATH} -l${LIBFT_NAME}
+LIBFT		= -L${LIBFT_PATH} ${LIBFT_NAME}
 
 # mlx library
 MLX_NAME	= -lmlx_Linux
@@ -47,7 +49,7 @@ all: ${NAME}
 ${NAME}		: ${OBJS} ${INC}
 			@${MAKE} -sC ${PRINTF_PATH}
 			@${MAKE} -sC ${LIBFT_PATH}
-			${CC} ${CFLAGS} ${OBJS} ${INC} ${MLX} -o $(NAME)
+			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${PRINTF} ${INC} ${MLX} -o $(NAME) 
 
 %.o 		: %.c
 			${CC} ${CFLAGS} -c $< -o $@ 
