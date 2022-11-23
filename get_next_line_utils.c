@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:18:39 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/18 14:40:31 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:56:45 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,3 @@ void	clean_var(char *var, size_t size)
 		i++;
 	}
 }
-
-/*int main()
-{
-	char s[] = "Salut toi";
-	int i;
-
-	i = find_sep(s);
-	printf("%d\n", i);
-	return 0;
-}*/

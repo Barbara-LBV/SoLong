@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 09:32:13 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/21 14:47:13 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:57:06 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ char	*get_str(const char *file)
 	
 	map = NULL;
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		printf("FD incorrect\n");
 	map = get_next_line(fd);	
 	return (map);
 }

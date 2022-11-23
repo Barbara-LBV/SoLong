@@ -6,78 +6,67 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:01:58 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/22 17:49:14 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:15:31 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	check_data(t_data *game)
+void	free_data(t_data *game)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < game->y)
-	{
-		j = 0;
-		while (j < game->x - 1)
-		{
-			if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i]
-[j] == 'E' || game->map[i][j] == 'P' || game->map[i][j] == 'C')
-				j++;
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (1);
+	while (game->map[i] != NULL)
+		free(game->map[i++]);
+	if (game->str != NULL)
+		free(game->str);
+	free(game->map);
+	free(game);
 }
 
-int	check_doubles(t_data *game)
+char	**get_map(t_data *game)
 {
-	int	i;
-	int	j;
-	
-	i = 0;
-	while (game->str[i] != NULL)
-	{
-	
-	}
-	
+	if (game->map == NULL)
+		game->map = ft_split(game->str, game->c);
+	return (game->map);
 }
 
-int	main(int ac, char **av)
+int	get_ordinate(char *str, char c)
+{
+	int	y;
+	int	i;
+
+	i = 0;
+	y = 0;
+	if (str == NULL)
+		return (0);
+	while (*str != '\0')
+	{
+		if (str[i] == c && str[i + 1] != c)
+			y += 1;
+		str++;
+	}
+	return (y);
+}
+
+void	initiate_map(t_data *game, char *file)
+{
+	game->c = '\n';
+	game->str = get_str(file);
+	game->map = get_map(game);
+	game->y = get_ordinate(game->str, game->c);
+	game->x = ft_strlen(game->map[0]);
+}
+
+/*int	main(int ac, char **av)
 {
 	t_data	*game;
-	
-	int i = 0;
+
 	game = malloc(sizeof(t_data));
-	if (ac != 2)
-	{
-		ft_printf("%s\n", strerror(args));
-		return 0;
-	}
-	game->c = '\n';
-	game->str = get_str(av[1]);
-	game->map = get_map(game);
-	if (game->map == NULL)
+	initiate_map(game, av[1]);
+	if (check_errors(game, ac, av[1]) != 1)
 		return (0);
-	game->y = get_ordinate(game->str, game->c);
-	game->x = ft_strlen(game->map[i]);
-	printf("%s\n", game->str);
-	if (!(check_walls_y(game)) || !(check_walls_y(game)))
-	{
-		ft_printf("%s\n", strerror(contour));
-		free_data(game);
-		return 0;
-	}
-	else if (!(check_data(game)))
-	{		
-		ft_printf("%s\n", strerror(data));
-		free_data(game);
-		return 0;
-	}
 	else
 	{
 		ft_printf("-->tab start<--\n");
@@ -86,5 +75,5 @@ int	main(int ac, char **av)
 		ft_printf("-->tab end<--\n");
 		free_data(game);
 	}
-	return 0;
-}
+	return (0);
+}*/
