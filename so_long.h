@@ -6,19 +6,13 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 11:11:42 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/22 17:42:34 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:03:16 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define BUFFER_SIZE 1000000
-# define ARGS 1 : "Unvalid Arguments"
-# define FILE 2 : "Unvalid File"
-# define SIZE 3 : "Unvalid Map Size"
-# define CONTOUR 4 : "Unvalid Contour Map"
-# define DATA 5 : "Unvalid Data"
-# define PATH 6 : "Unvalid Path"
 
 # include <unistd.h>
 # include <errno.h>
@@ -34,8 +28,10 @@
 
 typedef struct s_data
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	int		coll_nb;
+	int		size;
 	char	**map;
 	char	*str;
 	char	c;
@@ -47,16 +43,19 @@ char	*read_line(int fd, ssize_t reader, char *line, char *stash);
 char	*get_line(char *line, char *stash, size_t i);
 void	get_remaining_stash(char *stash);
 void	clean_var(char *tmp, size_t size);
+void	initiate_map(t_data *game, char *str);
 int		find_sep(char *stash);
 int		check_size(t_data *game);
 int		check_walls_x(t_data *game);
 int		check_walls_y(t_data *game);
 int		get_ordinate(char *str, char c);
-int		check_errors(t_data *game);
-char	**get_map(t_data *game);
+int		print_errors(t_data *game, int errnb);
+int		check_errors(t_data *game, int ac, char *s);
+int		check_file(char *file);
+int		check_double(t_data *game);
+int		check_data(t_data *game);
+int		find_p_pos(t_data *game);
 void	free_data(t_data *game);
 size_t	ft_strlen(const char *s);
-int	check_file(char *file);
-int	check_doubles(t_data *game);
 
 #endif

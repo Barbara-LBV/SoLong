@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:01:58 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/23 17:15:31 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:04:17 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,55 +25,77 @@ void	free_data(t_data *game)
 	free(game);
 }
 
-char	**get_map(t_data *game)
-{
-	if (game->map == NULL)
-		game->map = ft_split(game->str, game->c);
-	return (game->map);
-}
-
 int	get_ordinate(char *str, char c)
 {
-	int	y;
+	int	x;
 	int	i;
 
 	i = 0;
-	y = 0;
+	x = 0;
 	if (str == NULL)
 		return (0);
 	while (*str != '\0')
 	{
 		if (str[i] == c && str[i + 1] != c)
-			y += 1;
+			x += 1;
 		str++;
 	}
-	return (y);
+	return (x);
 }
 
 void	initiate_map(t_data *game, char *file)
 {
 	game->c = '\n';
 	game->str = get_str(file);
-	game->map = get_map(game);
-	game->y = get_ordinate(game->str, game->c);
-	game->x = ft_strlen(game->map[0]);
+	game->map = ft_split(game->str, game->c);
+	game->x = get_ordinate(game->str, game->c);
+	game->y = ft_strlen(game->map[0]);
+	game->size = (game->x * game->y) - 1;
 }
 
-/*int	main(int ac, char **av)
+int	check_errors(t_data *game, int ac, char *s)
 {
-	t_data	*game;
+	if (!game)
+		return (print_errors(game, 4));
+	else if (ac != 2)
+		return (print_errors(game, 1));
+	else if (!(ft_strstr(s, ".ber")))
+		return (print_errors(game, 2));
+	else if (game->str == NULL)
+		return (print_errors(game, 3));
+	else if (!(check_data(game)))
+		return (print_errors(game, 5));
+	else if (!(check_size(game)))
+		return (print_errors(game, 6));
+	else if (!(check_double(game)))
+		return (print_errors(game, 7));
+	else if (!(check_walls_x(game)) || !(check_walls_y(game)))
+		return (print_errors(game, 8));
+	//else if (!(check_path(game)))
+	//	return (print_errors(game, 9));	
+	return (1);
+}
 
-	game = malloc(sizeof(t_data));
-	initiate_map(game, av[1]);
-	if (check_errors(game, ac, av[1]) != 1)
-		return (0);
-	else
-	{
-		ft_printf("-->tab start<--\n");
-		for (int i = 0 ; game->map[i] != NULL ; i++)
-       		ft_printf("tab[%d]:%s\n", i, game->map[i]);
-		ft_printf("-->tab end<--\n");
-		free_data(game);
-	}
+int	print_errors(t_data *game, int errnb)
+{
+	if (errnb == 1)
+		ft_printf("Invalid numbers of arguments\n");
+	else if (errnb == 2)
+		ft_printf("Invalid File\n");
+	if (errnb == 3)
+		ft_printf("Empty file\n");
+	else if (errnb == 4)
+		ft_printf("Problem of allocation memory\n");
+	else if (errnb == 5)
+		ft_printf("Invalid Map Data\n");
+	else if (errnb == 6)
+		ft_printf(" Invalid Map Size\n");
+	else if (errnb == 7)
+		ft_printf("Invalid numbers of elements\n");
+	else if (errnb == 8)
+		ft_printf("Invalid Map Contour\n");
+	//else if (errnb == 9)
+	//	ft_printf("No existing valid path\n");
+	free_data(game);
 	return (0);
-}*/
+}

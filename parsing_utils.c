@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:30:04 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/23 17:19:37 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:04:57 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@ int	check_size(t_data *game)
 	return (1);
 }
 
-int	check_walls_x(t_data *game)
+int	check_walls_y(t_data *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < game->y)
+	while (i < game->x)
 	{
 		if (game->map[i][j] != '1')
 			return (0);
 		i++;
 	}
-	i = game->y - 1;
-	while (j < game->x)
+	i = game->x - 1;
+	while (j < game->y)
 	{
 		if (game->map[i][j] != '1')
 			return (0);
@@ -63,21 +63,21 @@ int	check_walls_x(t_data *game)
 	return (1);
 }
 
-int	check_walls_y(t_data *game)
+int	check_walls_x(t_data *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (j < game->x)
+	while (j < game->y)
 	{
 		if (game->map[i][j] != '1')
 			return (0);
 		j++;
 	}
-	j = game->x - 1;
-	while (i < game->y)
+	j = game->y - 1;
+	while (i < game->x)
 	{
 		if (game->map[i][j] != '1')
 			return (0);
@@ -92,10 +92,10 @@ int	check_data(t_data *game)
 	int	j;
 
 	i = 0;
-	while (i < game->y)
+	while (i < game->x)
 	{
 		j = 0;
-		while (j < game->x)
+		while (j < game->y)
 		{
 			if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i]
 [j] == 'E' || game->map[i][j] == 'P' || game->map[i][j] == 'C')
@@ -131,5 +131,5 @@ int	check_double(t_data *game)
 	}
 	if (count_c < 1 || count_e != 1 || count_p != 1)
 		return (0);
-	return (1);
+	return (count_c);
 }

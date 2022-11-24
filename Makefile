@@ -13,7 +13,10 @@ SRCS	= get_next_line.c \
 		so_long.c \
 		parsing.c \
 		parsing_utils.c \
-		parsing_errors.c
+		backtracking.c \
+		backtracking_utils.c \
+		animations.c \
+		animations_utils.c
 
 # object files
 OBJS	= ${SRCS:.c=.o}
