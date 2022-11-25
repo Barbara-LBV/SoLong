@@ -20,8 +20,13 @@ int	main(int ac, char **av)
 	initiate_map(game, av[1]);
 	if (check_errors(game, ac, av[1]) != 1)
 		return (0);
-	ft_printf("pos = %d\n", find_p_pos(game));
-	if (check_errors(game, ac, av[1]) == 1)
+	ft_printf("pos = %d\n", game->pos_p);
+	if (check_path(game) == 0)
+	{
+		ft_printf("Invalid path\n");
+	 	free_data(game);
+	}
+	else if (check_errors(game, ac, av[1]) == 1 && check_path(game) == 1)
 	{
 		ft_printf("-->tab start<--\n");
 	 for (int i = 0 ; game->map[i] != NULL ; i++)

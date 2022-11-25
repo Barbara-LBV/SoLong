@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:01:58 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/24 18:04:17 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:52:57 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_data(t_data *game)
 	free(game);
 }
 
-int	get_ordinate(char *str, char c)
+int	get_ordinate(char *str, char sep)
 {
 	int	x;
 	int	i;
@@ -36,7 +36,7 @@ int	get_ordinate(char *str, char c)
 		return (0);
 	while (*str != '\0')
 	{
-		if (str[i] == c && str[i + 1] != c)
+		if (str[i] == sep && str[i + 1] != sep)
 			x += 1;
 		str++;
 	}
@@ -45,12 +45,14 @@ int	get_ordinate(char *str, char c)
 
 void	initiate_map(t_data *game, char *file)
 {
-	game->c = '\n';
+	game->sep = '\n';
 	game->str = get_str(file);
-	game->map = ft_split(game->str, game->c);
-	game->x = get_ordinate(game->str, game->c);
+	game->map = ft_split(game->str, game->sep);
+	game->x = get_ordinate(game->str, game->sep);
 	game->y = ft_strlen(game->map[0]);
 	game->size = (game->x * game->y) - 1;
+	game->pos_p = find_pos(game, 'P');
+	game->pos_e = find_pos(game, 'E');
 }
 
 int	check_errors(t_data *game, int ac, char *s)

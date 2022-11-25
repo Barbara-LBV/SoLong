@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:30:04 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/24 16:04:57 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:36:20 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	check_size(t_data *game)
 	while (game->str[i] != '\0')
 	{
 		j = 0;
-		while (game->str[i] != game->c)
+		while (game->str[i] != game->sep)
 		{
 			j += 1;
 			i++;
 		}
-		if (game->str[i] == game->c)
+		if (game->str[i] == game->sep)
 		{
 			if (k == 0)
 				k = j;

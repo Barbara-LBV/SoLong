@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 11:11:42 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/24 18:03:16 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:56:51 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ typedef struct s_data
 	int		x;
 	int		y;
 	int		coll_nb;
+	int		pos_p;
+	int		pos_e;
 	int		size;
 	char	**map;
 	char	*str;
-	char	c;
+	char	sep;
 }	t_data;
 
 char	*get_next_line(int fd);
@@ -54,7 +56,9 @@ int		check_errors(t_data *game, int ac, char *s);
 int		check_file(char *file);
 int		check_double(t_data *game);
 int		check_data(t_data *game);
-int		find_p_pos(t_data *game);
+int		check_path(t_data *game);
+int		is_valid(t_data *game);
+int		find_pos(t_data *game, char el);
 void	free_data(t_data *game);
 size_t	ft_strlen(const char *s);
 
