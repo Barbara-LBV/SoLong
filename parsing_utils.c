@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:30:04 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/25 14:36:20 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:03:45 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	check_double(t_data *game)
 	count_p = 0;
 	count_e = 0;
 	count_c = 0;
+	if (!game->str)
+		return (0);
 	while (game->str[i] != '\0')
 	{
 		if (game->str[i] == 'P')

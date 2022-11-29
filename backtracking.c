@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:23:12 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/25 16:08:34 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:11:24 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,50 +37,38 @@ int	find_pos(t_data *game, char el)
 	return (pos);
 }
 
-int	is_valid(t_data *game)
+int	dfs(t_data *game, int i, int j, char new)
 {
-	int	i;
-	int	j;
+	int		count_c;
+	char	current;
 
-	i = game->pos_p / game->y;
-	j = game->pos_p % game->y;
-	//game->map[i][j] = 'P';
-	if (game->map[++i][j] != '1')
-		return (game->pos_p + game->y);
-	else if (game->map[i][++j] != '1')
-		return (game->pos_p + 1);
-	else if (game->map[--i][j] != '1')
-		return (game->pos_p - game->y);
-	else if (game->map[i][--j] != '1')
-		return (game->pos_p - 1);
-	return (0);
+	current = game->map[i][j];
+	if (current == '1' || current == new || i >= game->x || j >= game->y)
+		return (0);
+	else
+	{
+		if (game->map[i][j] == 'C')
+			game->coll_nb -= 1;
+		game->map[i][j] = new;
+		dfs(game, i + 1, j, new);
+		dfs(game, i - 1, j, new);
+		dfs(game, i, j + 1, new);
+		dfs(game, i, j - 1, new);
+	}
+	if (game->map[i][j] == game->map[game->pos_e / game->y][game->pos_e
+		% game->y] && game->coll_nb != 0)
+		return (0);
+	else if (game->map[i][j] == game->map[game->pos_e / game->y][game->pos_e
+		% game->y] && game->coll_nb == 0)
+		return (1);
 }
 
-int	check_path(t_data *game)
-{
-	int	i;
-	int	j;
-	int count_c;
-	
-	i = 0;
-	j = 0;
-	game->coll_nb = check_double(game);
-	while (game->pos_p != game->pos_e && game->coll_nb != count_c)
-	{
-		if (is_valid(game) == 0)
-			return (0);
-		else
-		{
-			game->map[game->pos_p / game->y][game->pos_p % game->y] = '0';
-			game->pos_p = is_valid(game);
-			if (game->map[game->pos_p / game->y][game->pos_p % game->y] == 'C')
-				count_c += 1;
-			game->map[game->pos_p / game->y][game->pos_p % game->y] = 'P';
-			if (check_path(game) == 1)
-					return (1);
-		}
-	if (game->pos_p == game->pos_e && game->coll_nb == count_c)
-		return (1);
-	}
-	return (0);	
+int	flood_fill(t_data *game, int i, int j, char new)
+{	
+	char	old_color;
+
+	old_color = game->map[i][j];
+	if (old_color == new)
+		return (0);
+	return (dfs(game, i, j, new));
 }
