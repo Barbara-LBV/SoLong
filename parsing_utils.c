@@ -6,11 +6,11 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:30:04 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/29 14:03:45 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:46:18 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "Libsolong/so_long.h"
 
 int	check_size(t_data *game)
 {

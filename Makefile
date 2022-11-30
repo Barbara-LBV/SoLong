@@ -2,7 +2,7 @@
 CC			= gcc
 
 # flags
-CFLAGS		= -g #-Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 
 # artifacts
 NAME		= so_long
@@ -13,47 +13,45 @@ SRCS	= get_next_line.c \
 		so_long.c \
 		parsing.c \
 		parsing_utils.c \
+		parsing_utils.c \
 		backtracking.c \
-		backtracking_utils.c \
-		animations.c \
-		animations_utils.c
+		initialization.c \
+		events.c
 
 # object files
 OBJS	= ${SRCS:.c=.o}
 
 # Printf library
 PRINTF_NAME	= -lftprintf
-
 PRINTF_PATH	= ./Printf
-
 PRINTF		= -L${PRINTF_PATH} ${PRINTF_NAME}
 
 # Libft library
 LIBFT_NAME	= -lft
-
 LIBFT_PATH	= ./Libft
-
 LIBFT		= -L${LIBFT_PATH} ${LIBFT_NAME}
 
 # mlx library
 MLX_NAME	= -lmlx_Linux
-
 MLX_PATH	= ./mlx-linux
-
 MLX_FLAGS   = -lXext -lX11 -lmlx -lm
-
 MLX			= -L${MLX_PATH} ${MLX_NAME} ${MLX_FLAGS}
 
 # so long library
-INC			= so_long.h
+LIBSOLONG_NAME	= -lso_long
+LIBSOLONG_PATH	= ./Libsolong
+SOLONG		= -L${LIBSOLONG_PATH} ${LIBSOLONG_NAME}
+
+# files 
+INC			= ./visuals
 
 # rules
 all: ${NAME}
 
-${NAME}		: ${OBJS} ${INC}
+${NAME}		: ${OBJS} ${SOLONG}
 			@${MAKE} -sC ${PRINTF_PATH}
 			@${MAKE} -sC ${LIBFT_PATH}
-			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${PRINTF} ${INC} ${MLX} -o $(NAME) 
+			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${PRINTF} ${SOLONG} ${MLX} ${INC} -o $(NAME) 
 
 %.o 		: %.c
 			${CC} ${CFLAGS} -c $< -o $@ 
@@ -77,6 +75,6 @@ val			:${NAME}
 			--show-leak-kinds=all ./${NAME}
 
 norme		:
-			norminette ${SRCS} ${INC}
+			norminette ${SRCS} ${SOLONG}
 
 .PHONY: all clean fclean re

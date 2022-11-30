@@ -6,11 +6,11 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:18:39 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/23 16:56:45 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:45:42 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "Libsolong/so_long.h"
 
 size_t	ft_strlen(const char *s)
 {

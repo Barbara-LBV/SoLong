@@ -6,29 +6,38 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:28:21 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/29 18:20:47 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:46:11 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "Libsolong/so_long.h"
 
 int	main(void)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_graph	*img;
-	int offset;
+	char	*relative_path = "./visuals/grass64px.xpm";
+	void	*img;
+	int		img_width;
+	int		img_height;
 	 
 	mlx_ptr = mlx_init();
+	if (mlx_ptr == NULL)
+		return (-1);
 	win_ptr = mlx_new_window(mlx_ptr, 1920, 1080, "Hello world!");
-	img->img = mlx_new_image(mlx_ptr, 1920, 1080);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
-								&img->endian);
-	//offset = (y * line_length + x * (bits_per_pixel / 8));
-	my_mlx_pixel_put(img, 5, 5, 0x00FF0000);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img->img, 0, 0);
+	if (win_ptr == NULL)
+	{
+		free(win_ptr);
+		return (-1);
+	}
+	//img->img = mlx_new_image(mlx_ptr, 1080, 540);
+	img = mlx_xpm_file_to_image(mlx_ptr, relative_path, &img_width, &img_height);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 348, 448); // les deux derniers int correspondent aux coordonnees ou on veut placer l'image dans la fenetre
 	mlx_loop(mlx_ptr);
-	//printf("Coucou");
+	mlx_destroy_image(mlx_ptr, img);
+	mlx_destroy_window(mlx_ptr, win_ptr);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
 }
 
 /*int	main(int ac, char **av)

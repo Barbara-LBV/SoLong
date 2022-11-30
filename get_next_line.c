@@ -6,11 +6,11 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 09:32:13 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/23 15:57:06 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:45:33 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "Libsolong/so_long.h"
 
 char	*get_line(char *line, char *stash, size_t i)
 {
@@ -107,12 +107,12 @@ char	*get_next_line(int fd)
 
 char	*get_str(const char *file)
 {
-	int fd;
-	char *map;
-	
+	int		fd;
+	char	*map;
+
 	map = NULL;
 	fd = open(file, O_RDONLY);
-	map = get_next_line(fd);	
+	map = get_next_line(fd);
 	return (map);
 }
 
