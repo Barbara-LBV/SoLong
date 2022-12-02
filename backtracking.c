@@ -6,11 +6,11 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:23:12 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/11/30 18:50:14 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:55:53 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Libsolong/so_long.h"
+#include "so_long.h"
 
 int	find_pos(t_data *game, char el)
 {
@@ -57,17 +57,20 @@ int	dfs(t_data *game, int i, int j, char new)
 	if (game->map[i][j] == game->map[game->pos_e / game->y][game->pos_e
 		% game->y] && game->coll_nb != 0)
 		return (0);
-	else if (game->map[i][j] == game->map[game->pos_e / game->y][game->pos_e
+	else if (game->map[i][j] != game->map[game->pos_e / game->y][game->pos_e
 		% game->y] && game->coll_nb == 0)
+		return (0);
 	return (1);
 }
 
 int	flood_fill(t_data *game, int i, int j, char new)
 {	
 	char	old_color;
+	int		bool;
 
 	old_color = game->map[i][j];
 	if (old_color == new)
 		return (0);
-	return (dfs(game, i, j, new));
+	bool = dfs(game, i, j, new);
+	return (bool);
 }
