@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blefebvr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:07:31 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/05/31 15:41:58 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:20:25 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static int	word_count(char const *str, char c)
 	i = 0;
 	j = 0;
 	word = 0;
+	if (str == NULL)
+		return (word);
 	while (str[i] != '\0' || str[j] != '\0')
 	{
 		while (str[i] == c && str[i] != '\0')
@@ -62,7 +64,7 @@ static char	**ft_malloc(char const *s, unsigned int word)
 {
 	char	**tab;
 
-	if (*s == '\0' || word == 0)
+	if (s == NULL || word == 0)
 	{
 		tab = malloc(sizeof(char *));
 		*tab = NULL;
