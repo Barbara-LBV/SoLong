@@ -6,26 +6,35 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:01:58 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/12/02 14:56:48by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:45:00 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_data(t_data *game)
+int	find_pos(t_data *game, char el)
 {
-	int	i;
+	int	i;	
+	int	j;
+	int	pos;
 
 	i = 0;
-	if (game != NULL)
+	pos = 0;
+	while (i < game->x)
 	{
-		while (game->map[i] != NULL)
-			free(game->map[i++]);
-		free(game->map);
+		j = 0;
+		while (j < game->y && game->map[i][j] != el)
+		{
+			j++;
+			pos++;
+		}
+		if (game->map[i][j] == el)
+			break ;
+		i++;
 	}
-	if (game->str != NULL)
-		free(game->str);
-	free(game);
+	if (pos >= game->size)
+		return (-1);
+	return (pos);
 }
 
 int	get_ordinate(char *str, char sep)
@@ -46,36 +55,63 @@ int	get_ordinate(char *str, char sep)
 	return (x);
 }
 
+char	**get_tmp_map(t_data *game)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	tmp = malloc(sizeof(char *) * game->x + 1);
+	if (tmp)
+	{
+		while (i < game->x)
+		{
+			tmp[i] = dup_map(game, i);
+			i++;
+		}
+	}
+	//tmp[game->x] = NULL;
+	return (tmp);
+}
+
+char	*dup_map(t_data *game, int i)
+{
+	int		j;
+	char	*dest;
+
+	j = 0;
+	if (game->map[i][j] == '\0')
+		return (NULL);
+	dest = malloc(sizeof(char) * game->y + 1);
+	if (!dest)
+		return (NULL);
+	while (j < game->y)
+	{
+			dest[j] = game->map[i][j];
+			j++;
+	}
+	dest[j] = '\0';
+	return (dest);
+}
+
 void	initiate_map(t_data *game, char *file)
 {
 	game->str = get_str(file);
 	game->sep = '\n';
-	game->map = ft_split(game->str, game->sep);	
+	game->map = ft_split(game->str, game->sep);
 	game->x = get_ordinate(game->str, game->sep);
 	game->y = ft_strlen(game->map[0]);
-	game->size = (game->x * game->y) - 1;	
+	game->size = (game->x * game->y) - 1;
+	game->map_tmp = get_tmp_map(game);
 	game->win_x = game->x * 64;
 	game->win_y = game->y * 64;
 	game->img_x = 0;
 	game->img_y = 0;
+	game->step = 0;
 	game->pos_p = find_pos(game, 'P');
 	game->pos_e = find_pos(game, 'E');
 	game->i = game->pos_p / game->y;
 	game->j = game->pos_p % game->y;
 	game->coll_nb = check_double(game);
-}
-
-void	check_arg(int ac, char *file)
-{
-	if (ac != 2)
-	{
-		ft_printf("Invalid number of arguments\n");
-		exit (-1);
-	}
-	
-	if (!ft_strstr(file, ".ber"))
-	{
-		ft_printf("Invalid File\n");
-		exit (-1);
-	}
+	game->coll = game->coll_nb;
 }

@@ -13,10 +13,12 @@ SRCS	= get_next_line.c \
 		so_long.c \
 		parsing.c \
 		parsing_utils.c \
-		parsing_utils.c \
+		parsing_errors.c \
 		backtracking.c \
 		initialization.c \
-		events.c
+		animation.c \
+		events.c \
+		clean.c
 
 # object files
 OBJS	= ${SRCS:.c=.o}
@@ -38,17 +40,15 @@ MLX_FLAGS   = -lXext -lX11 -lmlx -lm
 MLX			= -L${MLX_PATH} ${MLX_NAME} ${MLX_FLAGS}
 
 # so long library
-LIBSOLONG_NAME	= -lso_long
-LIBSOLONG_PATH	= ./Libsolong
-SOLONG		= -L${LIBSOLONG_PATH} ${LIBSOLONG_NAME}
+SOLONG		= so_long.h
 
 # files 
-INC			= ./visuals
+INC			= -I ./visuals
 
 # rules
 all: ${NAME}
 
-${NAME}		: ${OBJS} ${SOLONG}
+${NAME}		: ${OBJS} so_long.h
 			@${MAKE} -sC ${PRINTF_PATH}
 			@${MAKE} -sC ${LIBFT_PATH}
 			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${PRINTF} ${SOLONG} ${MLX} ${INC} -o $(NAME) 
