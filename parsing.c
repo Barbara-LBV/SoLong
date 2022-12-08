@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:01:58 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/12/07 15:45:00 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:15:06 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	**get_tmp_map(t_data *game)
 			i++;
 		}
 	}
-	//tmp[game->x] = NULL;
 	return (tmp);
 }
 
@@ -97,16 +96,18 @@ char	*dup_map(t_data *game, int i)
 void	initiate_map(t_data *game, char *file)
 {
 	game->str = get_str(file);
+	if (!game->str)
+		return ;
 	game->sep = '\n';
 	game->map = ft_split(game->str, game->sep);
 	game->x = get_ordinate(game->str, game->sep);
 	game->y = ft_strlen(game->map[0]);
-	game->size = (game->x * game->y) - 1;
 	game->map_tmp = get_tmp_map(game);
-	game->win_x = game->x * 64;
-	game->win_y = game->y * 64;
+	game->size = (game->x * game->y) - 1;
 	game->img_x = 0;
 	game->img_y = 0;
+	game->win_x = game->x * 64;
+	game->win_y = game->y * 64;
 	game->step = 0;
 	game->pos_p = find_pos(game, 'P');
 	game->pos_e = find_pos(game, 'E');

@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 11:11:42 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/12/07 19:10:08 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:45:31 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define P_LEFT "./visuals/frodo_left.xpm"
 
 # define KEY_PRESS 2
-# define KEYPRESSMASK (1L<<0) //pas aime par normimi !
-
 # define KEY_EXIT 17
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -116,7 +114,7 @@ void	open_img(t_data *game, int img_width, int img_height);
 void	put_fixed_img(t_data *data, int x, int y);
 void	put_moving_img(t_data *data, int x, int y);
 void	put_img(t_data *data, int x, int y);
-void	initiate_render(t_data *game);
+void	initiate_mlx(t_data *game);
 void	render_game(t_data *game);
 void	free_mlx(t_data *game);
 void	ft_mlx_destroy_image(t_data *game);

@@ -17,7 +17,6 @@ SRCS	= get_next_line.c \
 		backtracking.c \
 		initialization.c \
 		animation.c \
-		events.c \
 		clean.c
 
 # object files

@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:30:04 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/12/02 15:28:17 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:20:23 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ int	check_double(t_data *game)
 		i++;
 	}
 	if (count_c < 1 || count_e != 1 || count_p != 1)
-		return (-1);
+		return (0);
 	return (count_c);
 }

@@ -6,7 +6,7 @@
 /*   By: blefebvr <blefebvr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:17:22 by blefebvr          #+#    #+#             */
-/*   Updated: 2022/12/07 10:45:5 by blefebvr         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:19:41 by blefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	render_game(t_data *game)
 	int	j;
 
 	i = 0;
-	if (game->img_face_p == NULL)
-		open_img(game, 64, 64);
 	while (i < game->x)
 	{
 		j = 0;
@@ -96,6 +94,4 @@ void	render_game(t_data *game)
 		}
 		i++;
 	}
-	//mlx_key_hook(game->win_ptr, key_handler, &game);
-	//mlx_hook(game->win_ptr, KEY_EXIT, KEYPRESSMASK, ft_close, &game); // works
 }
